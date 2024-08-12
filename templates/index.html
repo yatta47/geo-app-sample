@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Geo Tracker</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <style>
+        #map {
+            height: 600px;
+            width: 100%;
+        }
+
+        .custom-icon {
+            border-radius: 50%; /* 丸くする */
+            border: 3px solid #ff0000; /* 赤い枠線を追加 */
+            background-color: white; /* 背景色を白にする */
+            padding: 3px; /* アイコンの余白を設定 */
+            width: 40px; /* アイコンの幅を指定 */
+            height: 40px; /* アイコンの高さを指定 */
+        }
+    </style>
+</head>
+<body>
+    <h1>Target Tracker</h1>
+    <div id="map"></div>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script>
+        var map = L.map('map').setView([36.5587, 139.9088], 15); // 初期位置とズームレベルを設定
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+        }).addTo(map);
+
+        // カスタムアイコンの定義（CSSクラスを使用）
+        var customIcon = L.divIcon({
+            className: 'custom-icon',
+            html: '<img src="/static/icon.png" style="border-radius: 50%; width: 100%; height: 100%;">',
+            iconSize: [30, 30], // アイコン全体のサイズ（CSSで丸くするため正方形に）
+            iconAnchor: [15, 15] // アイコンのアンカー位置を中央に設定
+        });
+
+        // マーカーの設定
+        var marker = L.marker([36.5587, 139.9088], {icon: customIcon}).addTo(map);
+
+        // サーバーから位置情報を取得してマーカーを更新
+        function updateMarker() {
+            fetch('/location')
+                .then(response => response.json())
+                .then(data => {
+                    var newLatLng = new L.LatLng(data.latitude, data.longitude);
+                    marker.setLatLng(newLatLng);
+                    map.setView(newLatLng);
+                });
+        }
+
+        // 1秒ごとにマーカーを更新
+        setInterval(updateMarker, 1000);
+    </script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "geo-api"
+version = "0.1.0"
+description = "geo api sample"
+authors = ["Your Name <you@example.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.12,<3.13"
+flask = "^3.0.3"
+osmnx = "^1.9.4"
+scikit-learn = "^1.5.1"
+shapely = "^2.0.5"
+requests = "^2.32.3"
+networkx = "^3.3"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
