@@ -21,4 +21,4 @@ EXPOSE 5000
 
 # Flaskアプリケーションを起動するコマンド
 # `PORT` 環境変数を使って起動するポートを指定
-CMD ["poetry", "run", "flask", "run", "--host=0.0.0.0", "--port=${PORT:-5000}"]
+CMD ["sh", "-c", "poetry run flask run --host=0.0.0.0 --port=${PORT}"]
