@@ -16,5 +16,9 @@ RUN poetry install --no-dev --no-root
 # プロジェクトのソースコードをコピー
 COPY . /app
 
-# Flaskアプリケーションを実行
-CMD ["poetry", "run", "python", "app.py"]
+# ポート番号の情報提供用にEXPOSEを追加
+EXPOSE 5000
+
+# Flaskアプリケーションを起動するコマンド
+# `PORT` 環境変数を使って起動するポートを指定
+CMD ["poetry", "run", "flask", "run", "--host=0.0.0.0", "--port=${PORT:-5000}"]
