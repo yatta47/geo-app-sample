@@ -4,8 +4,10 @@ import networkx as nx
 from shapely.geometry import Point
 import random
 from datetime import datetime
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 # GeoAreaの定義（指定されたエリア）
 GEOAREA = {

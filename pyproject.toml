@@ -13,6 +13,7 @@ scikit-learn = "^1.5.1"
 shapely = "^2.0.5"
 requests = "^2.32.3"
 networkx = "^3.3"
+flask-cors = "^4.0.1"
 
 
 [build-system]
